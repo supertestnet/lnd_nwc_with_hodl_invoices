@@ -4,7 +4,7 @@ THESE NEXT LINES ARE CUSTOMIZABLE SETTINGS
 
 */
 
-var adminmac = "";
+var adminmac = ""; //admin macaroon
 var lndendpoint = ""; //e.g. https://127.0.0.1:8080 or https://cloud-59.voltage.com
 
 /*
@@ -547,6 +547,7 @@ var lnSend = async ( invoice, amt_for_amountless_invoice, app_pubkey ) => {
                 state.tx_history[ pmthash ][ "settled_at" ] = Math.floor( Date.now() / 1000 );
                 state.tx_history[ pmthash ][ "paid" ] = true;
                 state.tx_history[ pmthash ][ "fees_paid" ] = fee;
+                state.balance = state.balance - state.tx_history[ pmthash ][ "amount" ] - fee;
                 resolve( "payment succeeded" );
             }
             if ( body.result.failure_reason ) resolve( body.result.failure_reason );
