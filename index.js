@@ -5,7 +5,7 @@ THESE NEXT LINES ARE CUSTOMIZABLE SETTINGS
 */
 
 var adminmac = ""; //admin macaroon
-var lndendpoint = ""; //e.g. https://127.0.0.1:8080 or https://cloud-59.voltage.com
+var lndendpoint = "https://127.0.0.1:8080"; //e.g. https://127.0.0.1:8080 or https://cloud-59.voltage.com
 
 /*
 
@@ -399,6 +399,7 @@ async function getLNInvoice( amount, desc ) {
         var requestBody = {
             memo: desc,
             value: String( amount ),
+            private: true,
         };
         var options = {
             url: endpoint,
@@ -424,6 +425,7 @@ async function getHodlInvoice( amount, payment_hash, expiry = 40, desc, desc_has
             hash: Buffer.from( payment_hash, "hex" ).toString( "base64" ),
             value: String( amount ),
             cltv_expiry: expiry.toString(),
+            private: true,
         };
         if ( desc ) requestBody.memo = desc;
         if ( desc_hash ) requestBody.description_hash = Buffer.from( desc_hash, "hex" ).toString( "base64" );
